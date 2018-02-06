@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, IonicPage, LoadingController, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 //import { RegisterPage } from '../register/register';
+
 import { Facebook } from "@ionic-native/facebook";
 import { TwitterConnect } from "@ionic-native/twitter-connect";
 import { Http, Headers} from '@angular/http';
@@ -38,8 +39,6 @@ export class HomePage {
       .catch(e => console.log(e));
   }
 
-
-
  
   logoutTW(){
     this.tw.logout().then(
@@ -65,7 +64,7 @@ export class HomePage {
         console.log("user id: " + this.data.user.id);
         console.log("datos del user: " + JSON.stringify(this.data.user));
         //console.log(this.loginData + this.data.token);
-        this.navCtrl.push("DashboardPage", {
+        this.navCtrl.setRoot("DashboardPage", {
           user: this.data.user
         });
         /*this.navCtrl.setRoot(TabsPage);*/
@@ -137,7 +136,7 @@ export class HomePage {
             console.log("user token: " + res.json().success.token);
             console.log("user id: " + res.json().user.id);
             console.log("datos del user: " + JSON.stringify(res.json().user));
-            this.navCtrl.push("DashboardPage", {
+            this.navCtrl.setRoot("DashboardPage", {
               user: res.json().user
             });            
 
@@ -146,7 +145,7 @@ export class HomePage {
           if (res.json().status == 'registro'  ) {
             this.presentToast("exito ref: " + JSON.stringify(res));
             console.log(res);            
-            this.navCtrl.setRoot("CodigodereferidoPage", {
+            this.navCtrl.push("CodigodereferidoPage", {
               user: res.json().data,//id, name, email
             });
           }
@@ -171,7 +170,6 @@ export class HomePage {
   apiSocialLoginTW(user) {
     this.user.provider = "twitter";
     this.presentToast("esto es lo q enviaremos al controlador en laravel: " + JSON.stringify(this.user));
-
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
@@ -187,7 +185,7 @@ export class HomePage {
           if (res.json().status == 'registro'  ) {
             this.presentToast("exito ref: " + JSON.stringify(res));
             console.log(res);            
-            this.navCtrl.setRoot("CodigodereferidoPage", {
+            this.navCtrl.push("CodigodereferidoPage", {
               user: res.json().data,//id, name, email
             });
           }
@@ -213,19 +211,33 @@ export class HomePage {
   
   loginTW(): void{
 
-    this.tw.login().then(
-      res => {
-        console.log(res);
-        this.presentToast(JSON.stringify(res));
-        this.user = res;
-        this.apiSocialLoginTW(res);
+    let env = this;
+    //Request for login
+    this.tw.login().then(result => {
 
-      },
-      error => {
-        console.log("Error connecting to twitter: ", error);
-      }
-    );
-  } 
+      //Get user data
+      env.tw.showUser().then(res => {
+        //Save the user data in NativeStorage
+        localStorage.setItem('user',
+        JSON.stringify({
+          id: res.id,
+          name: res.name,
+          token: res.token
+        }));
+        this.user = {id: res.id, 
+          name: res.name, 
+          email: res.email};
+        this.presentToast(JSON.stringify(this.user));
+        this.apiSocialLoginTW(this.user);
+
+
+        });
+
+      }, (error) => {
+        this.presentToast(error)
+      });
+  }
+  
 
   
 

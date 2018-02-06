@@ -8,7 +8,7 @@ import { Facebook } from "@ionic-native/facebook";
 import { MyApp } from './app.component';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
 import { Transfer } from '@ionic-native/transfer';

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { Facebook } from "@ionic-native/facebook";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
 import { Http, Headers, Response } from '@angular/http';
+
 
 let apiUrl = 'https://ahorroygano.com/api/v2/';
 //let apiUrl = "http://localhost:8000/api/v2/";
@@ -18,12 +18,12 @@ export class CodigodereferidoPage {
   refferForm: FormGroup;
 
   constructor(
-    public navCtrl: NavController,public navParams: NavParams,private fb: Facebook,
+    public navCtrl: NavController,public navParams: NavParams,
     public formBuilder: FormBuilder,public http: Http, private toastCtrl: ToastController)
     {
 
     this.refferForm = formBuilder.group({
-      reffer_id: [""],
+      reffer_id: ["", , Validators.required],
       id: [""],
       email: [""],
       name: [""]
@@ -41,16 +41,16 @@ export class CodigodereferidoPage {
       console.log("res : " + JSON.stringify(res) );
       console.log("status : " + JSON.stringify(res.status));
       /* if(res.status == 'ok'){ */
-        this.presentToast("ok : " + res );        
+        this.presentToast("ok : " + res.json() );        
         console.log(res.json().status == "login");
-        localStorage.setItem("token", res.json().success.token);
+    //    localStorage.setItem("token", res.json().success.token);
         localStorage.setItem("id", res.json().user.id);
         localStorage.setItem("user", res.json().user);
         console.log("user token: " + res.json().success.token);
         console.log("user id: " + res.json().user.id);
         console.log("datos del user: " + JSON.stringify(res.json().user));
         this.presentToast("fin : " + res );
-        this.navCtrl.setRoot("DashboardPage", {
+        this.navCtrl.push("DashboardPage", {
           user: res.json().user
         });  
       /* } */

@@ -3,11 +3,11 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, IonicPage, NavParams } from "ionic-angular";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Http, Headers } from "@angular/http";
+import { Http } from "@angular/http";
 import "rxjs/add/operator/map";
-import {FileTransfer,FileUploadOptions,FileTransferObject} from "@ionic-native/file-transfer";
-import { File } from "@ionic-native/file";
-import { Camera } from "@ionic-native/camera";
+//import {FileTransfer,FileUploadOptions,FileTransferObject} from "@ionic-native/file-transfer";
+//import { File } from "@ionic-native/file";
+//import { Camera } from "@ionic-native/camera";
 /*
   Generated class for the Principal page.
 
@@ -89,12 +89,11 @@ export class DashboardPage {
 
       // redirect to home
 
-      localStorage.removeItem("id");
-      localStorage.removeItem("token");
+      localStorage.clear()
       this.email = "";
       this.password = "";
       this.loggedIn = false;
-      this.nav.setRoot(HomePage);
+      this.nav.setRoot("HomePage");
       this.nav.popToRoot();
     }
     // Reset the content nav to have just this page

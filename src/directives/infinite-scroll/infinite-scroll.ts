@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, Output, EventEmitter } from '@angular/core';
 
 /**
  * Generated class for the InfiniteScrollDirective directive.

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import {Http, Headers, Response} from '@angular/http';
+import {Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 let apiUrl = 'https://ahorroygano.com/api/v2/';
@@ -33,8 +33,9 @@ export class IndexPage {
     public navCtrl: NavController,public navParams: NavParams,public _http: Http,public formBuilder: FormBuilder,public modalCtrl: ModalController
   ) {
 
-    this.name = localStorage.getItem("user");
-    console.log("NOMBRE POR INDEX" + JSON.stringify(this.name));
+
+
+    
 
     this.Filtroform = formBuilder.group({
       /*
@@ -69,6 +70,8 @@ export class IndexPage {
       this.result = data;
     });
 
+    
+
     this.initializeItems();
     this.userID = localStorage.getItem("id");
     console.log(this.userID);
@@ -99,6 +102,12 @@ export class IndexPage {
       );
   }
 
+  
+  ionViewCanEnter(){
+    this.name = localStorage.getItem("user");
+    console.log("NOMBRE POR INDEX" + JSON.stringify(this.name));
+  }
+  
   ionViewDidLoad() {
     console.log("ionViewDidLoad IndexPage");
     console.log(this.userID);

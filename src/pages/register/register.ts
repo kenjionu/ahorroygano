@@ -1,4 +1,4 @@
-import { HomePage } from './../home/home';
+//import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -22,6 +22,7 @@ export class RegisterPage {
   authForm: FormGroup;
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public http: Http) {
     this.authForm = formBuilder.group({
+      reffer_id: ['', Validators.required],
       name: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
@@ -45,12 +46,19 @@ export class RegisterPage {
       console.log("res : " + JSON.stringify(res) );
       console.log("status : " + JSON.stringify(res.status));
       console.log("token : " + JSON.stringify(res.success.token) );
+      localStorage.setItem("id", res.id);
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("user", res.user);      
+      this.navCtrl.setRoot('IndexPage', {
+        user: res.user
+      });
+
     },
     (err) => {
       //console.log("error : " + err);
       console.log("usuario o clave invalidos");
+      this.navCtrl.pop();
     });
-    this.navCtrl.setRoot(HomePage);
   }
 
 

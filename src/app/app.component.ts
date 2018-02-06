@@ -21,13 +21,16 @@ export class MyApp {
       splashScreen.hide();
     }
   );
+  
+  /*
   if (localStorage.getItem('id')){
     this.rootPage = 'DashboardPage';
  }else{
-   this.rootPage = HomePage;
+   this.rootPage = "HomePage";
  }
  this.showRoot = true;
 }
-    
+    */
   }
+}
 
