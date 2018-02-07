@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import { Http, Headers, Response } from '@angular/http';
+
 /**
  * Generated class for the RegisterPage page.
  *
@@ -11,7 +12,6 @@ import { Http, Headers, Response } from '@angular/http';
  * Ionic pages and navigation.
  */
 let apiUrl = 'https://ahorroygano.com/api/v2/';
-
 //let apiUrl = 'http://localhost:8000/api/v2/';
 @IonicPage()
 @Component({
@@ -20,6 +20,7 @@ let apiUrl = 'https://ahorroygano.com/api/v2/';
 })
 export class RegisterPage {
   authForm: FormGroup;
+  data:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public http: Http) {
     this.authForm = formBuilder.group({
       reffer_id: ['', Validators.required],
@@ -43,14 +44,16 @@ export class RegisterPage {
     .map((res: Response) => res.json())
     /*Para quitar el _body dl mapeo sehce estoy*/
     .subscribe(res => {
+      this.data = res;
       console.log("res : " + JSON.stringify(res) );
       console.log("status : " + JSON.stringify(res.status));
       console.log("token : " + JSON.stringify(res.success.token) );
-      localStorage.setItem("id", res.id);
-      localStorage.setItem("token", res.token);
-      localStorage.setItem("user", res.user);      
-      this.navCtrl.setRoot('IndexPage', {
-        user: res.user
+      localStorage.setItem("id", this.data.user.id);
+      localStorage.setItem("token", this.data.user.token);
+      localStorage.setItem("user", this.data.user.id);  
+      console.log("ID      " +this.data.user.id + "data token      " + this.data.user.token + "data user: " +JSON.stringify(this.data.user ));    
+      this.navCtrl.setRoot('DashboardPage', {
+        user: JSON.stringify(this.data.user)
       });
 
     },

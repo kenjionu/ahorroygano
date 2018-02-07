@@ -38,14 +38,7 @@ export class IndexPage {
     
 
     this.Filtroform = formBuilder.group({
-      /*
-        category
-        type
-        city
-        provincie
-        lon
-        lat
-       */
+ 
       category: ["", Validators.required],
       type: ["", Validators.required],
       city: ["", Validators.required],

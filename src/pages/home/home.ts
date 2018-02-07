@@ -179,14 +179,15 @@ export class HomePage {
         .subscribe(res => {
           this.enviodata = res.json()
           resolve(res.json());
+          this.data = res;
           //hacemos login
 
           //vamos a registrar
           if (res.json().status == 'registro'  ) {
-            this.presentToast("exito ref: " + JSON.stringify(res));
+            this.presentToast("exito ref: " + this.data.data);
             console.log(res);            
             this.navCtrl.push("CodigodereferidoPage", {
-              user: res.json().data,//id, name, email
+              user: this.data.data,//id, name, email
             });
           }
         }, (err) => {

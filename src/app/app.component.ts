@@ -22,15 +22,15 @@ export class MyApp {
     }
   );
   
-  /*
+  
   if (localStorage.getItem('id')){
     this.rootPage = 'DashboardPage';
  }else{
    this.rootPage = "HomePage";
+   localStorage.clear();
  }
  this.showRoot = true;
-}
-    */
+
   }
 }
 

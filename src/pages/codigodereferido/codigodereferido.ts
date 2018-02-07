@@ -16,6 +16,7 @@ export class CodigodereferidoPage {
   isLoggedIn: boolean = false;
   user:any = this.navParams.get('user');
   refferForm: FormGroup;
+  data: any;
 
   constructor(
     public navCtrl: NavController,public navParams: NavParams,
@@ -38,6 +39,7 @@ export class CodigodereferidoPage {
     this.http.post(apiUrl + 'completesocial', JSON.stringify(this.refferForm.value), {headers: headers})
     .map((res: Response) => res.json())
     .subscribe(res => {
+      this.data = res;
       console.log("res : " + JSON.stringify(res) );
       console.log("status : " + JSON.stringify(res.status));
       /* if(res.status == 'ok'){ */
