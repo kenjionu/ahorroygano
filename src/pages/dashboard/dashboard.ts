@@ -1,3 +1,4 @@
+import { HomePage } from './../home/home';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, IonicPage, NavParams } from "ionic-angular";
 import { StatusBar } from '@ionic-native/status-bar';
@@ -76,10 +77,6 @@ export class DashboardPage {
     });
   }
 
-  ionViewWillLeave(){
-    localStorage.clear();
-  }
-  
   openPage(page) {
     if (page.component) {
       this.nav.setRoot(page.component);
@@ -92,7 +89,7 @@ export class DashboardPage {
 
       // redirect to home
 
-      localStorage.clear();
+      localStorage.clear()
       this.email = "";
       this.password = "";
       this.loggedIn = false;
@@ -101,7 +98,7 @@ export class DashboardPage {
     }
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-   // this.nav.setRoot(page.component);
+    /*this.nav.setRoot(page.component);*/
   }
 }
 

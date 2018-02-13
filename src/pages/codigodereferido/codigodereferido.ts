@@ -25,7 +25,7 @@ export class CodigodereferidoPage {
 
     this.refferForm = formBuilder.group({
       reffer_id: ["", , Validators.required],
-      id: [""],
+      provider_id: [""],
       email: [""],
       name: [""]
     });
